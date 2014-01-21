@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="http://chatbuilder.hackreactor.com/ChatBuilder.js"></script>
+
+  </head>
+  <body>
+    <script>
+     
+
+      Chat.guide.start();
+
+  
+    delete Chat.display;
+      Chat.display = function(string){
+       $('.messages').append('<li>' + string + '</li>');
+      };
+      delete Chat.fetch;
+
+      Chat.fetch = function(func){
+        $.ajax({
+            type: "GET",
+            url: "https://api.parse.com/1/classes/chats",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function(results){
+              func(results)
+              console.log(results);
+
+            },
+            error: function(err){
+              console.log(err);
+            }
+
+        });
+      }
+
+    </script>
+
+
+    <h2>Broken Chat</h2>
+
+    <input class="draft" type="text"/> <button class="send" disabled>send</button>
+
+    <ul class="messages">
+    </ul>
+
+  </body>
+</html>
