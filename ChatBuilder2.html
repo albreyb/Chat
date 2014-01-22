@@ -9,7 +9,7 @@
     <script>
      
 
-      Chat.guide.start();
+    Chat.guide.start();
 
   
     delete Chat.display;
@@ -18,23 +18,24 @@
       };
       delete Chat.fetch;
 
-      Chat.fetch = function(func){
-        $.ajax({
-            type: "GET",
-            url: "https://api.parse.com/1/classes/chats",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function(results){
-              func(results)
-              console.log(results);
+     Chat.fetch = function(func){
+    $.ajax({
+        type: "GET",
+        url: "https://api.parse.com/1/classes/chats",
+        contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        success: function(results){
+          for(var i = 0; i < results['results'].length; i++){
+            func(results['results'][i]['text']);
+          }
 
-            },
-            error: function(err){
-              console.log(err);
-            }
+        },
+        error: function(err){
+          console.log(err);
+        }
+    });
+  }
 
-        });
-      }
 
     </script>
 
